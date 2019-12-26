@@ -35,16 +35,7 @@
                       <a href="javascript:;" class="commit-author tooltipped tooltipped-s user-mention"
                         attr.aria-label="View all commits by {{ commit.commit.author.name }}">{{ commit.commit.author.name }}</a>
                       committed
-                      <!-- <relative-time datetime="2019-12-21T00:40:53Z" class="no-wrap">Dec 21, 2019</relative-time> -->
-                    </div>
-                    <div class="commit-indicator">
-                      <details class="commit-build-statuses details-overlay details-reset js-dropdown-details">
-                        <summary class="text-green">
-                          <svg aria-label="1 / 1 checks OK" class="octicon octicon-check" viewBox="0 0 12 16"
-                            version="1.1" width="12" height="16" role="img">
-                            <path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z" /></svg>
-                        </summary>
-                      </details>
+                      <time [attr.datetime]="commit.commit.author.date" class="no-wrap">{{ key | date }}</time>
                     </div>
                   </div>
                 </div>
