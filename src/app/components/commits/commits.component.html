@@ -1,17 +1,6 @@
 <div class="container">
   <div class="row pt-5">
     <div class="col-12">
-      <div class="form-group">
-        <select class="form-control" id="branchSelect" [(ngModel)]="selectedBranch"
-          (ngModelChange)="onChangeBranch($event)">
-          <ng-template ngFor let-branch [ngForOf]="branches">
-            <option [ngValue]="branch">{{ branch.name }}</option>
-          </ng-template>
-        </select>
-      </div>
-    </div>
-
-    <div class="col-12">
       <ng-template ngFor let-key [ngForOf]="grouppedCommits | keys">
         <div class="commits-listing commits-listing-padded js-navigation-container js-active-navigation-container">
           <div class="commit-group-title">
