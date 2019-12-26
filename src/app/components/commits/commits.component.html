@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <form>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Branch</label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <ng-template ngFor let-branch [ngForOf]="branches">
+              <option [value]="branch.commit.sha" [selected]="isSelected(branch)">{{ branch.name }}</option>
+            </ng-template>
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
