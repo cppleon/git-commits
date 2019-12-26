@@ -1,16 +1,69 @@
 <div class="container">
-  <div class="row">
+  <div class="row pt-5">
     <div class="col-12">
-      <form>
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">Branch</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <ng-template ngFor let-branch [ngForOf]="branches">
-              <option [value]="branch.commit.sha" [selected]="isSelected(branch)">{{ branch.name }}</option>
+      <div class="form-group">
+        <select class="form-control" id="branchSelect" [(ngModel)]="selectedBranch"
+          (ngModelChange)="onChangeBranch($event)">
+          <ng-template ngFor let-branch [ngForOf]="branches">
+            <option [ngValue]="branch">{{ branch.name }}</option>
+          </ng-template>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <ng-template ngFor let-key [ngForOf]="grouppedCommits | keys">
+        <div class="commits-listing commits-listing-padded js-navigation-container js-active-navigation-container">
+          <div class="commit-group-title">
+            <svg class="octicon octicon-git-commit" viewBox="0 0 14 16" version="1.1" width="14" height="16"
+              aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M10.86 7c-.45-1.72-2-3-3.86-3-1.86 0-3.41 1.28-3.86 3H0v2h3.14c.45 1.72 2 3 3.86 3 1.86 0 3.41-1.28 3.86-3H14V7h-3.14zM7 10.2c-1.22 0-2.2-.98-2.2-2.2 0-1.22.98-2.2 2.2-2.2 1.22 0 2.2.98 2.2 2.2 0 1.22-.98 2.2-2.2 2.2z" />
+            </svg>Commits on {{ key | date }}
+          </div>
+
+          <ol class="commit-group table-list table-list-bordered">
+            <ng-template ngFor let-commit [ngForOf]="grouppedCommits[key]">
+              <li
+                class="commit commits-list-item js-commits-list-item table-list-item js-navigation-item js-details-container Details js-socket-channel js-updatable-content">
+                <div class="table-list-cell">
+                  <p class="commit-title h5 mb-1 text-gray-dark ">
+                    <a [attr.aria-label]="commit.commit.message" class="message js-navigation-open"
+                      href="javascript:;">{{ commit.commit.message }}</a>
+                  </p>
+
+                  <div class="commit-meta commit-author-section no-wrap d-flex flex-items-center mt-1">
+                    <div class="AvatarStack flex-self-start ">
+                      <div class="AvatarStack-body" [attr.aria-label]="commit.commit.author.name">
+                        <a class="avatar" href="javascript:;">
+                          <img height="20" width="20" alt="@Laremere"
+                            src="https://avatars1.githubusercontent.com/u/{{ commit.author.id }}?s=60&amp;v=4" />
+                        </a>
+                      </div>
+                    </div>
+
+                    <div>
+                      <a href="javascript:;" class="commit-author tooltipped tooltipped-s user-mention"
+                        attr.aria-label="View all commits by {{ commit.commit.author.name }}">{{ commit.commit.author.name }}</a>
+                      committed
+                      <!-- <relative-time datetime="2019-12-21T00:40:53Z" class="no-wrap">Dec 21, 2019</relative-time> -->
+                    </div>
+                    <div class="commit-indicator">
+                      <details class="commit-build-statuses details-overlay details-reset js-dropdown-details">
+                        <summary class="text-green">
+                          <svg aria-label="1 / 1 checks OK" class="octicon octicon-check" viewBox="0 0 12 16"
+                            version="1.1" width="12" height="16" role="img">
+                            <path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z" /></svg>
+                        </summary>
+                      </details>
+                    </div>
+                  </div>
+                </div>
+              </li>
             </ng-template>
-          </select>
+          </ol>
         </div>
-      </form>
+      </ng-template>
     </div>
   </div>
 </div>
