@@ -21,8 +21,6 @@ export class CommitsComponent implements OnInit {
 
   grouppedCommits: { [key: string]: Commit[]; } = {};
 
-  selectedBranch: Branch;
-
   constructor(private _githubService: GithubService) { }
 
   ngOnInit() {
@@ -30,12 +28,6 @@ export class CommitsComponent implements OnInit {
 
     this._githubService.getBranches(this.owner, this.repo).subscribe(res => {
       this.branches = res;
-
-      this.branches.forEach(branch => {
-        if (branch.name === 'master') {
-          this.selectedBranch = branch;
-        }
-      });
     });
   }
 
@@ -51,10 +43,6 @@ export class CommitsComponent implements OnInit {
 
       this.grouppedCommits = groupBy(this.commits, (commit: any) => new Date(commit.commit.author.date).toLocaleDateString());
     });
-  }
-
-  onChangeBranch(branch: Branch) {
-    this.getCommits(branch.commit.sha);
   }
 
 }
